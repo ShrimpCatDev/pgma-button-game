@@ -5,6 +5,9 @@ function camera:init(x,y,w,h)
     self.y=y or 0
     self.w=w or conf.gw
     self.h=h or conf.gh
+
+    self.dx=self.x
+    self.dy=self.y
 end
 
 function camera:setBounds(x,y,w,h)
@@ -21,14 +24,19 @@ function camera:update(dt)
         self.y=self.target.y+self.target.h/2-self.h/2
     end
     if self.bounds then
+        
         self.x=math.clamp(self.x,self.bounds.x,self.bounds.x+self.bounds.w-self.w)
         self.y=math.clamp(self.y,self.bounds.y,self.bounds.y+self.bounds.h-self.h)
     end
+
+    local a=1-math.exp(-12*dt)
+    self.dx=self.dx+(self.x-self.dx)*a
+    self.dy=self.dy+(self.y-self.dy)*a
 end
 
 function camera:push()
     love.graphics.push()
-    love.graphics.translate(math.round(-self.x),math.round(-self.y))
+    love.graphics.translate(math.round(-self.dx),math.round(-self.dy))
 end
 
 function camera:pop()
