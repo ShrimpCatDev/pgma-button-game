@@ -7,10 +7,11 @@ function love.load()
         resizable=true
     })
 
-    shove.createLayer("terrain")
-
     sti=require("lib/sti")
-    map=sti("assets/map/test.lua")
+
+    gs=require("lib/hump/gamestate")
+    gs.registerEvents()
+    gs.switch(require("states/game"))
 end
 
 function love.update(dt)
@@ -18,9 +19,5 @@ function love.update(dt)
 end
 
 function love.draw()
-    shove.beginDraw()
-        shove.beginLayer("terrain")
-            map:draw()
-        shove.endLayer()
-    shove.endDraw()
+
 end
