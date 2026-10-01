@@ -1,13 +1,13 @@
 local player={}
 
-function player:init(x,y,world)
-    self.world=world
+function player:init(x,y,parent)
+    self.parent=parent
     self.x=x or 0
     self.y=y or 0
     self.w=8
     self.h=8
 
-    world:add(self,self.x,self.y,self.w,self.h)
+    self.parent.world:add(self,self.x,self.y,self.w,self.h)
 
     self.vx=0
     self.vy=0
@@ -21,7 +21,7 @@ end
 
 function player:update(dt)
     self.jump=false
-    self.vy=self.vy+self.world.gravity*dt
+    self.vy=self.vy+self.parent.world.gravity*dt
     self.y=self.y+self.vy*dt
 
     if input:down("right") then
@@ -34,7 +34,7 @@ function player:update(dt)
 
     self.x=self.x+self.vx*dt
 
-    local ax,ay,col,len=self.world:move(self,self.x,self.y)
+    local ax,ay,col,len=self.parent.world:move(self,self.x,self.y)
     self.x,self.y=ax,ay
 
     for k,v in ipairs(col) do
@@ -52,11 +52,8 @@ function player:update(dt)
 end
 
 function player:draw()
-    love.graphics.setColor(1,1,1,0.5)
-    love.graphics.rectangle("fill",self.x,self.y,self.w,self.h)
-    love.graphics.setColor(1,1,1,1)
-
-    love.graphics.draw(self.img,self.x,self.y-(self.img:getHeight()-self.h))
+    local dx,dy=math.round(self.x),math.round(self.y-(self.img:getHeight()-self.h))
+    love.graphics.draw(self.img,dx,dy)
 end
 
 return player
