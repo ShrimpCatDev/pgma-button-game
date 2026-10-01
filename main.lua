@@ -9,13 +9,16 @@ function love.load()
 
     sti=require("lib/sti")
 
+    local baton=require("lib/baton")
+    input=baton.new(require("input"))
+
     gs=require("lib/hump/gamestate")
     gs.registerEvents()
     gs.switch(require("states/game"))
 end
 
 function love.update(dt)
-
+    input:update()
 end
 
 function love.draw()

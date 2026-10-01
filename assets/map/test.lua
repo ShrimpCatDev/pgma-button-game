@@ -40,7 +40,134 @@ return {
       properties = {},
       wangsets = {},
       tilecount = 1024,
-      tiles = {}
+      tiles = {
+        {
+          id = 224,
+          properties = {
+            ["collidable"] = true,
+            ["platform"] = true
+          }
+        },
+        {
+          id = 225,
+          properties = {
+            ["collidable"] = true,
+            ["platform"] = true
+          }
+        },
+        {
+          id = 226,
+          properties = {
+            ["collidable"] = true,
+            ["platform"] = true
+          }
+        },
+        {
+          id = 227,
+          properties = {
+            ["collidable"] = true,
+            ["platform"] = true
+          }
+        },
+        {
+          id = 228,
+          properties = {
+            ["collidable"] = true,
+            ["platform"] = true
+          }
+        },
+        {
+          id = 256,
+          properties = {
+            ["collidable"] = true,
+            ["platform"] = true
+          }
+        },
+        {
+          id = 257,
+          properties = {
+            ["collidable"] = true,
+            ["platform"] = true
+          }
+        },
+        {
+          id = 258,
+          properties = {
+            ["collidable"] = true,
+            ["platform"] = true
+          }
+        },
+        {
+          id = 259,
+          properties = {
+            ["collidable"] = true,
+            ["platform"] = true
+          }
+        },
+        {
+          id = 260,
+          properties = {
+            ["collidable"] = true,
+            ["platform"] = true
+          }
+        },
+        {
+          id = 261,
+          properties = {
+            ["collidable"] = true,
+            ["platform"] = true
+          }
+        },
+        {
+          id = 289,
+          properties = {
+            ["collidable"] = true,
+            ["platform"] = true
+          }
+        },
+        {
+          id = 290,
+          properties = {
+            ["collidable"] = true,
+            ["platform"] = true
+          }
+        },
+        {
+          id = 291,
+          properties = {
+            ["collidable"] = true,
+            ["platform"] = true
+          }
+        },
+        {
+          id = 292,
+          properties = {
+            ["collidable"] = true,
+            ["platform"] = true
+          }
+        },
+        {
+          id = 293,
+          properties = {
+            ["collidable"] = true,
+            ["platform"] = true
+          }
+        },
+        {
+          id = 324,
+          properties = {
+            ["collidable"] = true,
+            ["platform"] = true
+          }
+        },
+        {
+          id = 325,
+          properties = {
+            ["collidable"] = true,
+            ["platform"] = true
+          }
+        }
+      }
     }
   },
   layers = {
@@ -74,7 +201,7 @@ return {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 193, 195, 193, 195, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 1, 0, 194, 0, 195, 193, 193, 195, 0, 0, 260, 261, 261, 261, 226, 261, 227, 0, 0, 0, 0, 193, 195, 0, 0, 0, 0, 0, 193,
+        0, 0, 0, 194, 0, 195, 193, 193, 195, 0, 0, 260, 261, 261, 261, 226, 261, 227, 0, 0, 0, 0, 193, 195, 0, 0, 0, 0, 0, 193,
         225, 226, 226, 261, 226, 261, 226, 261, 226, 261, 226, 228, 258, 326, 293, 290, 290, 229, 226, 261, 261, 261, 226, 227, 0, 0, 0, 225, 226, 226,
         257, 326, 293, 325, 326, 326, 325, 290, 291, 326, 290, 290, 290, 258, 290, 290, 258, 290, 291, 326, 325, 258, 258, 259, 0, 0, 0, 257, 293, 290,
         257, 290, 293, 291, 258, 290, 293, 291, 290, 325, 258, 291, 325, 326, 291, 293, 291, 258, 325, 290, 291, 325, 326, 259, 0, 0, 0, 257, 291, 258

@@ -12,7 +12,9 @@ function player:init(x,y,world)
     self.vx=0
     self.vy=0
     self.jump=false
-    self.jumpHeight=64
+    self.jumpHeight=90
+
+    self.speed=80
 
     self.img=love.graphics.newImage("assets/sprites/player.png")
 end
@@ -22,13 +24,29 @@ function player:update(dt)
     self.vy=self.vy+self.world.gravity*dt
     self.y=self.y+self.vy*dt
 
+    if input:down("right") then
+        self.vx=self.speed
+    elseif input:down("left") then
+        self.vx=-self.speed
+    else
+        self.vx=0
+    end
+
+    self.x=self.x+self.vx*dt
+
     local ax,ay,col,len=self.world:move(self,self.x,self.y)
     self.x,self.y=ax,ay
 
     for k,v in ipairs(col) do
-        if v.other.platform and v.normal.y<0 then
+        if (v.other.properties and v.other.properties.platform) and v.normal.y<0 then
             self.vy=0
             self.jump=true
+        end
+    end
+
+    if self.jump then
+        if input:pressed("jump") then
+            self.vy=-self.jumpHeight
         end
     end
 end
