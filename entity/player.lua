@@ -11,15 +11,26 @@ function player:init(x,y,world)
 
     self.vx=0
     self.vy=0
+    self.jump=false
+    self.jumpHeight=64
+
     self.img=love.graphics.newImage("assets/sprites/player.png")
 end
 
 function player:update(dt)
+    self.jump=false
     self.vy=self.vy+self.world.gravity*dt
     self.y=self.y+self.vy*dt
 
-    local ax,ay=self.world:move(self,self.x,self.y)
+    local ax,ay,col,len=self.world:move(self,self.x,self.y)
     self.x,self.y=ax,ay
+
+    for k,v in ipairs(col) do
+        if v.other.platform and v.normal.y<0 then
+            self.vy=0
+            self.jump=true
+        end
+    end
 end
 
 function player:draw()
