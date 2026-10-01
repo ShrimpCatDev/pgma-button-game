@@ -13,6 +13,7 @@ function game:enter()
     self.camera=require("utils/camera")
     self.camera:init(0,0,conf.gw,conf.gh)
     self.camera:setTarget(self.player)
+    self.camera:setBounds(0,0,self.map.width*self.map.tilewidth,self.map.height*self.map.tileheight)
 
     --world:add({platform=true},0,128-8,144,8)
     self.outline=love.graphics.newCanvas(conf.gw,conf.gh)

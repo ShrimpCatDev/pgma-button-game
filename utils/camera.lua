@@ -7,6 +7,10 @@ function camera:init(x,y,w,h)
     self.h=h or conf.gh
 end
 
+function camera:setBounds(x,y,w,h)
+    self.bounds={x=x,y=y,w=w,h=h}
+end
+
 function camera:setTarget(entity)
     self.target=entity
 end
@@ -15,6 +19,10 @@ function camera:update(dt)
     if self.target then
         self.x=self.target.x+self.target.w/2-self.w/2
         self.y=self.target.y+self.target.h/2-self.h/2
+    end
+    if self.bounds then
+        self.x=math.clamp(self.x,self.bounds.x,self.bounds.x+self.bounds.w-self.w)
+        self.y=math.clamp(self.y,self.bounds.y,self.bounds.y+self.bounds.h-self.h)
     end
 end
 
