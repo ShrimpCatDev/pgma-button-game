@@ -35,7 +35,7 @@ function game:draw()
 
     shove.beginDraw()
         shove.beginLayer("terrain")
-            love.graphics.clear(0.1,0.5,1)
+            love.graphics.clear(color("#4d9be6"))
 
             love.graphics.setColor(0,0,0,1)
                 love.graphics.draw(self.outline,-1,0)
@@ -46,7 +46,7 @@ function game:draw()
                 love.graphics.draw(self.outline,-1,1)
                 love.graphics.draw(self.outline,1,1)
                 love.graphics.draw(self.outline,-1,-1)
-                love.graphics.draw(self.outline,-1,1)
+                love.graphics.draw(self.outline,1,-1)
             love.graphics.setColor(1,1,1,1)
 
             love.graphics.draw(self.outline,0,0)

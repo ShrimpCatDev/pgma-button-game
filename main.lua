@@ -1,6 +1,7 @@
 function love.load()
     require("utils.func")
     conf=require("conf")
+    color=require("lib/hex2color")
     shove=require("lib/shove")
     shove.setResolution(conf.gw,conf.gh,{renderMode = "layer",scalingFilter = "nearest"})
 
