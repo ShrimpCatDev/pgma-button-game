@@ -25,6 +25,7 @@ end
 function game:draw()
     shove.beginDraw()
         shove.beginLayer("terrain")
+            love.graphics.clear(0.1,0.5,1)
             self.camera:push()
                 self.map:draw(-self.camera.x,-self.camera.y)
                 self.player:draw()
