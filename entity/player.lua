@@ -45,7 +45,7 @@ function player:init(x,y,parent)
         run=anim8.newAnimation(grid("3-7",1),0.08)
     }
 
-    self.anim.current=self.anim.idle
+    self.anim.current=self.anim.run
     --honestly there HAS to be a better way to do animations
 end
 
@@ -58,7 +58,7 @@ function player:update(dt)
     self.y=self.y+self.vy*dt
 
     --player input
-    if input:down("right") then
+    --[[if input:down("right") then
         self.vx=self.speed
         self.dir=1
         self.anim.current=self.anim.run
@@ -69,11 +69,11 @@ function player:update(dt)
     else
         self.vx=0
         self.anim.current=self.anim.idle
-    end
+    end]]
 
     self.drawDir=math.lerp(self.drawDir,self.dir,12,dt) --smoothly animate the turning/flipping of le player
 
-    self.x=self.x+self.vx*dt --move the players x by its velocity
+    self.x=self.x+(self.speed*self.dir)*dt --move the players x by its velocity
 
     local ax,ay,col,len=self.parent.world:move(self,self.x,self.y,self.filter) --update the players position in the physics world
     self.x,self.y=ax,ay
@@ -83,6 +83,10 @@ function player:update(dt)
         if (v.other.properties and v.other.properties.platform) and v.normal.y<0 then
             self.vy=0
             self.jump=true
+        end
+
+        if (v.other.properties and v.other.properties.platform) and v.normal.x~=0 and v.normal.y==0 then
+            self.dir=v.normal.x
         end
     end
 

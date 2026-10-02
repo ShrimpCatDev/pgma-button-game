@@ -9,8 +9,8 @@ return {
   height = 16,
   tilewidth = 8,
   tileheight = 8,
-  nextlayerid = 3,
-  nextobjectid = 3,
+  nextlayerid = 4,
+  nextobjectid = 5,
   properties = {},
   tilesets = {
     {
@@ -263,6 +263,56 @@ return {
           visible = true,
           properties = {
             ["bg"] = "test2"
+          }
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
+      id = 3,
+      name = "collision",
+      class = "",
+      visible = false,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 3,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = -8,
+          y = 0,
+          width = 8,
+          height = 128,
+          rotation = 0,
+          opacity = 1,
+          visible = true,
+          properties = {
+            ["collidable"] = true,
+            ["platform"] = true
+          }
+        },
+        {
+          id = 4,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 480,
+          y = 0,
+          width = 8,
+          height = 128,
+          rotation = 0,
+          opacity = 1,
+          visible = true,
+          properties = {
+            ["collidable"] = true,
+            ["platform"] = true
           }
         }
       }
