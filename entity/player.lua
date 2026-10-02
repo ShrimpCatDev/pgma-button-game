@@ -20,6 +20,13 @@ function player:init(x,y,parent)
     self.speed=80
 
     self.img=love.graphics.newImage("assets/sprites/player.png")
+    local anim8=require("lib/anim8")
+    local grid=anim8.newGrid(8,16,self.img:getWidth(),self.img:getHeight())
+    self.anim={
+        idle=anim8.newAnimation(grid("1-2",1),0.4),
+        run=anim8.newAnimation(grid("3-7",1),0.08)
+    }
+    self.anim.current=self.anim.idle
 end
 
 function player:update(dt)
@@ -30,11 +37,14 @@ function player:update(dt)
     if input:down("right") then
         self.vx=self.speed
         self.dir=1
+        self.anim.current=self.anim.run
     elseif input:down("left") then
         self.vx=-self.speed
         self.dir=-1
+        self.anim.current=self.anim.run
     else
         self.vx=0
+        self.anim.current=self.anim.idle
     end
 
     self.drawDir=math.lerp(self.drawDir,self.dir,12,dt)
@@ -56,15 +66,17 @@ function player:update(dt)
             self.vy=-self.jumpHeight
         end
     end
+
+    self.anim.current:update(dt)
 end
 
 function player:draw()
-    local dx,dy=math.round(self.x+self.w/2),math.round(self.y-(self.img:getHeight()-self.h))
+    local dx,dy=math.floor(self.x+self.w/2),math.floor(self.y-(self.img:getHeight()-self.h))
 
     local a=math.abs(self.drawDir)+0.25
     
     love.graphics.setColor(a,a,a,1)
-        love.graphics.draw(self.img,dx,dy,0,self.drawDir,1,self.img:getWidth()/2,0)
+        self.anim.current:draw(self.img,dx,dy,0,self.drawDir,1,self.w/2,0)
     love.graphics.setColor(1,1,1,1)
 end
 

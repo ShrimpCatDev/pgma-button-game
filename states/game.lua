@@ -21,13 +21,15 @@ end
 
 function game:update(dt)
     self.player:update(dt)
-    self.camera:update(dt)  
-
+    self.map:update(dt)
+    
     for k,v in ipairs(self.map.layers.bounds.objects) do
         if math.collision(v.x,v.y,v.width,v.height,self.player.x,self.player.y,self.player.w,self.player.h) then
             self.camera:setBounds(v.x,v.y,v.width,v.height)
         end
     end
+
+    self.camera:update(dt)  
 end
 
 function game:draw()

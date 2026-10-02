@@ -36,7 +36,7 @@ end
 
 function camera:push()
     love.graphics.push()
-    love.graphics.translate(math.round(-self.dx),math.round(-self.dy))
+    love.graphics.translate(math.floor(-self.dx),math.floor(-self.dy))
 end
 
 function camera:pop()
