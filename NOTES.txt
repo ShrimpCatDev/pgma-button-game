@@ -1,4 +1,22 @@
 Hi hi hi hi hi hi hi hi hi hi hi hi hi Jake (slowed+reverb)
 
 add whatever notes you need me to know/implement/fix when youre done! 
-ill do the same just so we can keep everything organized :3
+ill do the same just so we can TRY to keep everything organized :3
+
+JOSEPH DAY 1:
+
+~what i did~
+-i added basic player controls with animations
+-drawing world with camera (with custom library)
+-add some art
+
+~TODO~ (doesnt all have to be done in one sitting ofc, just mark what you did)
+-add acceleration/jump cancelling to the player to make it feel smoother
+-add button
+-make/add custom pixel font
+-add collectibles and/or a way to add enemies/nps/whatever
+-add health
+-add dialog system
+-jumpthru platforms
+-expand the tileset and add more art/music/sfx
+-JUICE (i have some ideas)
