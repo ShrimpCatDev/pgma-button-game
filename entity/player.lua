@@ -1,5 +1,21 @@
 local player={}
 
+function player.filter(item,other)
+    local p = other.properties
+    if not p then
+        return "cross"
+    end
+    if p.jumpthru and p.platform then
+        if item.vy>=0 and other.y>=item.prevY+item.h then
+            return "slide"
+        else
+            return nil
+        end
+    else
+        return "slide"
+    end
+end
+
 function player:init(x,y,parent)
     --the parent stuff makes it easier to access the world
     self.parent=parent
@@ -13,7 +29,7 @@ function player:init(x,y,parent)
     self.vx=0
     self.vy=0
     self.jump=false --variable to chjeck if the player can jump/is on a platform
-    self.jumpHeight=90
+    self.jumpHeight=100
 
     self.dir=1
     self.drawDir=self.dir --this one adds the fancy flipping animation when you turn around
@@ -37,6 +53,7 @@ function player:update(dt)
     self.jump=false --haha player cant jump
 
     --gravity issac law edition or something
+    self.prevY=self.y
     self.vy=self.vy+self.parent.world.gravity*dt
     self.y=self.y+self.vy*dt
 
@@ -58,7 +75,7 @@ function player:update(dt)
 
     self.x=self.x+self.vx*dt --move the players x by its velocity
 
-    local ax,ay,col,len=self.parent.world:move(self,self.x,self.y) --update the players position in the physics world
+    local ax,ay,col,len=self.parent.world:move(self,self.x,self.y,self.filter) --update the players position in the physics world
     self.x,self.y=ax,ay
 
     for k,v in ipairs(col) do

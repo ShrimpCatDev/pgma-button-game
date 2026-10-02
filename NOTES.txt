@@ -17,6 +17,6 @@ JOSEPH DAY 1:
 -add collectibles and/or a way to add enemies/nps/whatever
 -add health
 -add dialog system
--jumpthru platforms
+-jumpthru platforms (DONE)
 -expand the tileset and add more art/music/sfx
 -JUICE (i have some ideas)
