@@ -245,7 +245,9 @@ return {
           rotation = 0,
           opacity = 1,
           visible = true,
-          properties = {}
+          properties = {
+            ["bg"] = "test"
+          }
         },
         {
           id = 2,
@@ -259,7 +261,9 @@ return {
           rotation = 0,
           opacity = 1,
           visible = true,
-          properties = {}
+          properties = {
+            ["bg"] = "test2"
+          }
         }
       }
     },

@@ -23,6 +23,9 @@ function love.load()
     local baton=require("lib/baton")
     input=baton.new(require("input"))
 
+    --timer manager
+    timer=require("lib/hump/timer")
+
     --gamestate manager
     gs=require("lib/hump/gamestate")
     gs.registerEvents()
@@ -31,6 +34,7 @@ end
 
 function love.update(dt)
     input:update()
+    timer.update()
 end
 
 function love.draw()
