@@ -9,3 +9,7 @@ end
 function math.clamp(n,min,max)
     return math.max(min,math.min(max,n))
 end
+
+function math.collision(ax,ay,aw,ah,bx,by,bw,bh)
+    return ax<bx+bw and ax+aw>bx and ay<by+bh and ay+ah>by
+end
