@@ -1,7 +1,14 @@
 function love.load()
+    --utility functions
     require("utils.func")
+
+    --load config
     conf=require("conf")
+
+    --hexidecimal color values to love2d rgb values
     color=require("lib/hex2color")
+
+    --resolution stuff
     shove=require("lib/shove")
     shove.setResolution(conf.gw,conf.gh,{renderMode = "layer",scalingFilter = "nearest"})
 
@@ -9,14 +16,17 @@ function love.load()
         resizable=true
     })
 
+    --map loading
     sti=require("lib/sti")
 
+    --input manager
     local baton=require("lib/baton")
     input=baton.new(require("input"))
 
+    --gamestate manager
     gs=require("lib/hump/gamestate")
     gs.registerEvents()
-    gs.switch(require("states/game"))
+    gs.switch(require("states/game")) --gonna replace this with a better state system eventually once i add more states :3
 end
 
 function love.update(dt)
