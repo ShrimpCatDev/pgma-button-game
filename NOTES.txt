@@ -9,6 +9,7 @@ JOSEPH DAY 1:
 -i added basic player controls with animations
 -drawing world with camera (with custom library)
 -add some art
+-add bg framework for later
 
 ~TODO~ (doesnt all have to be done in one sitting ofc, just mark what you did)
 -add acceleration/jump cancelling to the player to make it feel smoother
@@ -20,3 +21,6 @@ JOSEPH DAY 1:
 -jumpthru platforms (DONE)
 -expand the tileset and add more art/music/sfx
 -JUICE (i have some ideas)
+
+NOTE: if you plan on adding anything to the tilemap or need to test something out make sure to add a bounds object in tiled
+and if you need to test platform things there are checkerboard tiles and the aqua/white one is a jumpthru platform.
