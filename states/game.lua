@@ -94,7 +94,12 @@ function game:draw()
 
         --apply everything to the camera position
         self.camera:push()
-            self.map:draw(-self.camera.dx,-self.camera.dy) --draw the map (gonna replace this with a more reliable function soon)
+            --draw the map 
+            for _, layer in ipairs(self.map.layers) do
+                if layer.visible and layer.opacity > 0 then
+                self.map:drawLayer(layer)
+                end
+            end
             self.player:draw() --draw the player
         self.camera:pop()
     

@@ -7,20 +7,20 @@
   <image source="tileset.png" width="256" height="256"/>
   <tile id="192">
    <animation>
-    <frame tileid="192" duration="400"/>
+    <frame tileid="192" duration="350"/>
     <frame tileid="160" duration="400"/>
    </animation>
   </tile>
   <tile id="193">
    <animation>
-    <frame tileid="193" duration="400"/>
-    <frame tileid="161" duration="400"/>
+    <frame tileid="193" duration="350"/>
+    <frame tileid="161" duration="200"/>
    </animation>
   </tile>
   <tile id="194">
    <animation>
-    <frame tileid="194" duration="400"/>
-    <frame tileid="162" duration="400"/>
+    <frame tileid="194" duration="200"/>
+    <frame tileid="162" duration="300"/>
    </animation>
   </tile>
   <tile id="224">
