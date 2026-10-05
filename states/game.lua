@@ -35,9 +35,13 @@ function game:enter()
         paused=false,
         timer=timer.new()
     }
+
+    self.deco=require("deco")
+    self.deco:init(self,self.map)
 end
 
 function game:update(dt)
+    self.deco:update(dt)
     self.player:update(dt) --self explanitory lol
     self.map:update(dt) --makes it so the map can have animations and stuffs
 
@@ -106,6 +110,7 @@ function game:draw()
                 self.map:drawLayer(layer)
                 end
             end
+            self.deco:draw()
             self.player:draw() --draw the player
         self.camera:pop()
     

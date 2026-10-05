@@ -14,7 +14,7 @@ function bg:draw()
 end
 
 function bg:overlay()
-    love.graphics.rectangle("fill",50,50,16,16)
+    --love.graphics.rectangle("fill",50,50,16,16)
 end
 
 return bg
