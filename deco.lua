@@ -5,6 +5,7 @@ function deco:init(parent,map)
     self.parent=parent
 
     self.leaves={}
+    self.map.layers.leaves.visible=false
     for k,v in ipairs(self.map.layers.leaves.objects) do
         local l=setmetatable({}, {__index=require("entity.tree")})
         l:init(parent,v.x,v.y)

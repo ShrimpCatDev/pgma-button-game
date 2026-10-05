@@ -9,7 +9,7 @@ function tree:init(parent,x,y)
     self.shader:send("ampX",0.01)
     self.shader:send("ampY",0.02)
     self.shader:send("freqX",10)
-    self.shader:send("freqY",4)
+    self.shader:send("freqY",5)
     self.shader:send("speedX",3)
     self.shader:send("speedY",3)
 

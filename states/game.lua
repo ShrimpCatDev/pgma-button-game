@@ -129,6 +129,9 @@ function game:draw()
                 love.graphics.rectangle("fill",0,0,conf.gw,conf.gh)
             love.graphics.setColor(1,1,1,1)
 
+            love.graphics.setColor(0,0,0,0.5)
+                love.graphics.draw(self.outline,2,2)
+
             --probably should just make a shader instead qwp
             love.graphics.setColor(0,0,0,1)
                 love.graphics.draw(self.outline,-1,0)
