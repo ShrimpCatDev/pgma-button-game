@@ -133,6 +133,8 @@ function game:draw()
 
             --draw the ouline canvas to the layer (this one is just the normal one)
             love.graphics.draw(self.outline,0,0)
+
+            love.graphics.print("Hello world!")
         shove.endLayer()
     shove.endDraw()
 end

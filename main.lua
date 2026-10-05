@@ -19,6 +19,10 @@ function love.load()
     --map loading
     sti=require("lib/sti")
 
+    --font
+    font=require("assets/font/capy")
+    love.graphics.setFont(font)
+
     --input manager
     local baton=require("lib/baton")
     input=baton.new(require("input"))
