@@ -30,6 +30,7 @@ function game:enter()
     self.bgs=require.tree("backgrounds")
     self.bg={
         canvas=love.graphics.newCanvas(conf.gw,conf.gh),
+        overlayCanvas=love.graphics.newCanvas(conf.gw,conf.gh),
         fade=0,
         paused=false,
         timer=timer.new()
@@ -73,6 +74,8 @@ function game:bounds(bounds)
             self.bg.current=b
             love.graphics.setCanvas(self.bg.canvas)
             love.graphics.clear()
+            love.graphics.setCanvas(self.bg.overlayCanvas)
+            love.graphics.clear()
             love.graphics.setCanvas()
             self.bg.current:init(self,bounds)
 
@@ -85,6 +88,9 @@ function game:draw()
     --the background canvas
     love.graphics.setCanvas(self.bg.canvas)
     if self.bg.current and self.bg.current.draw then self.bg.current:draw() end
+
+    love.graphics.setCanvas(self.bg.overlayCanvas)
+    if self.bg.current and self.bg.current.overlay then self.bg.current:overlay() end
 
     --the outline canvas
     
@@ -133,6 +139,11 @@ function game:draw()
 
             --draw the ouline canvas to the layer (this one is just the normal one)
             love.graphics.draw(self.outline,0,0)
+
+            local f=self.bg.fade
+            love.graphics.setColor(1,1,1,1-f)
+            love.graphics.draw(self.bg.overlayCanvas,0,0)
+            love.graphics.setColor(1,1,1,1)
 
             love.graphics.print("Hello world!")
         shove.endLayer()
