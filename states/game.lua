@@ -152,8 +152,6 @@ function game:draw()
             love.graphics.setColor(1,1,1,1-f)
             love.graphics.draw(self.bg.overlayCanvas,0,0)
             love.graphics.setColor(1,1,1,1)
-
-            love.graphics.print("Hello world!")
         shove.endLayer()
     shove.endDraw()
 end

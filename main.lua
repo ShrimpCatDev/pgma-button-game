@@ -23,6 +23,10 @@ function love.load()
     font=require("assets/font/capy")
     love.graphics.setFont(font)
 
+    --spritesheet
+    sheet=require("lib/sheet")
+    sheet:init(love.graphics.newImage("assets/map/tileset.png"),8,8)
+
     --input manager
     local baton=require("lib/baton")
     input=baton.new(require("input"))
