@@ -83,6 +83,11 @@ function player:update(dt)
         if (v.other.properties and v.other.properties.platform) and v.normal.y<0 then
             self.vy=0
             self.jump=true
+
+        end
+
+        if (v.other.properties and v.other.properties.platform) and v.normal.y>0 and not v.other.properties.jumpthru then
+            self.vy=0
         end
 
         if (v.other.properties and v.other.properties.platform) and v.normal.x~=0 and v.normal.y==0 then

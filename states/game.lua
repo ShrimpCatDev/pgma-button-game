@@ -108,8 +108,9 @@ function game:draw()
     love.graphics.setCanvas(self.bg.overlayCanvas)
     if self.bg.current and self.bg.current.overlay then self.bg.current:overlay() end
 
+    self.map.layers.noOutline.visible=false
+
     --the outline canvas
-    
     love.graphics.setCanvas(self.outline)
         
         love.graphics.clear()--i forgot this at one point and everything looked cursed
@@ -139,6 +140,11 @@ function game:draw()
             love.graphics.setColor(0,0,0,f)
                 love.graphics.rectangle("fill",0,0,conf.gw,conf.gh)
             love.graphics.setColor(1,1,1,1)
+
+            love.graphics.setColor(1,1,1,1)
+                self.camera:push()
+                self.map:drawLayer(self.map.layers.noOutline)
+                self.camera:pop()
 
             love.graphics.setColor(0,0,0,0.5)
                 love.graphics.draw(self.outline,2,2)
