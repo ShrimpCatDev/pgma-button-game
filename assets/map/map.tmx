@@ -154,7 +154,7 @@
   </object>
   <object id="2" x="240" y="-67.5" width="240" height="195.5">
    <properties>
-    <property name="bg" value="test2"/>
+    <property name="bg" value="test"/>
    </properties>
   </object>
  </objectgroup>

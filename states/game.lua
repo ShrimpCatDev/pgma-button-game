@@ -39,7 +39,8 @@ function game:enter()
         overlayCanvas=love.graphics.newCanvas(conf.gw,conf.gh),
         fade=0,
         paused=false,
-        timer=timer.new()
+        timer=timer.new(),
+        currentName=""
     }
 
     self.deco=require("deco")
@@ -78,7 +79,8 @@ end
 --change background image when bounds is changed
 function game:bounds(bounds)
     local b=self.bgs[bounds.properties.bg]
-    if b then
+    if b and bounds.properties.bg~=self.bg.currentName then
+        self.bg.currentName=bounds.properties.bg
         self.bg.timer:tween(0.2,self.bg,{fade=1},"out-cubic",function()
             self.bg.current=nil
             self.bg.current=b
