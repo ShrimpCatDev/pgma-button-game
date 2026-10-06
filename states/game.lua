@@ -45,11 +45,15 @@ function game:enter()
 
     self.deco=require("deco")
     self.deco:init(self,self.map)
+
+    self.items=require("items")
+    self.items:init(self,self.map)
 end
 
 function game:update(dt)
     self.deco:update(dt)
     self.player:update(dt) --self explanitory lol
+    self.items:update(dt)
     self.map:update(dt) --makes it so the map can have animations and stuffs
 
     self.bg.timer:update(dt)

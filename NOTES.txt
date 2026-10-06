@@ -14,7 +14,7 @@ JOSEPH DAY 1:
 ~TODO~ (doesnt all have to be done in one sitting ofc, just mark what you did)
 -add acceleration/jump cancelling to the player to make it feel smoother
 -add button
--make/add custom pixel font
+-make/add custom pixel font (DONE)
 -add collectibles and/or a way to add enemies/nps/whatever
 -add health
 -add dialog system

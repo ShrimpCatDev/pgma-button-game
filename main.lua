@@ -1,3 +1,5 @@
+unpack=unpack or table.unpack
+
 function love.load()
     --utility functions
     require("utils.func")
