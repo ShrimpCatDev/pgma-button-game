@@ -15,6 +15,12 @@ function game:enter()
     self.map=sti("assets/map/test.lua",{"bump"})
     self.map:bump_init(self.world)
 
+    local d=self.map.layers.draw
+    d.draw=function()
+        self.map:drawObjectLayer(d)
+        self.player:draw()
+    end
+
     --loading the camera
     self.camera=require("utils/camera")
     self.camera:init(0,0,conf.gw,conf.gh)
@@ -107,11 +113,10 @@ function game:draw()
             --draw the map 
             for _, layer in ipairs(self.map.layers) do
                 if layer.visible and layer.opacity > 0 then
-                self.map:drawLayer(layer)
+                    self.map:drawLayer(layer)
                 end
             end
             self.deco:draw()
-            self.player:draw() --draw the player
         self.camera:pop()
     
     love.graphics.setCanvas()
