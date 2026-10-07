@@ -38,7 +38,7 @@ function camera:update(dt)
     end
 
     --smoothly move to the position ya lol
-    local a=1-math.exp(-12*dt)
+    local a=1-math.exp(-10*dt)
     self.dx=self.dx+(self.x-self.dx)*a
     self.dy=self.dy+(self.y-self.dy)*a
 end

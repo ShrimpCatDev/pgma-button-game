@@ -28,7 +28,7 @@ function game:enter()
     self.camera=require("utils/camera")
     self.camera:init(0,0,conf.gw,conf.gh)
 
-    self.camera:setTarget(self.player)
+    self.camera:setTarget(self.player.point)
     self.camera:setBounds(0,0,self.map.width*self.map.tilewidth,self.map.height*self.map.tileheight)
 
     --the outline canvas for devious outlining things

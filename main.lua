@@ -43,6 +43,7 @@ function love.load()
 end
 
 function love.update(dt)
+    input.config.joystick=love.joystick.getJoysticks()[1]
     input:update()
     timer.update()
 end

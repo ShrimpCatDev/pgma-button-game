@@ -47,6 +47,8 @@ function player:init(x,y,parent)
 
     self.anim.current=self.anim.run
     --honestly there HAS to be a better way to do animations
+
+    self.point={x=self.x,y=self.y,w=self.w,h=self.h}
 end
 
 function player:update(dt)
@@ -104,6 +106,9 @@ function player:update(dt)
 
     --update the players animation
     self.anim.current:update(dt)
+
+    self.point.x=math.floor(self.x+4+(32*self.dir))
+    self.point.y=math.floor(self.y+4)
 end
 
 function player:draw()
