@@ -1,6 +1,9 @@
 local game={}
 
 function game:enter()
+    local sound=love.audio.newSource("assets/music/main.mp3","static")
+    sound:setLooping(true)
+    sound:play()
     --just making the rendering layer(s)
     shove.createLayer("terrain")
 

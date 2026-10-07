@@ -29,7 +29,7 @@ function player:init(x,y,parent)
     self.vx=0
     self.vy=0
     self.jump=false --variable to chjeck if the player can jump/is on a platform
-    self.jumpHeight=100
+    self.jumpHeight=120
 
     self.dir=1
     self.drawDir=self.dir --this one adds the fancy flipping animation when you turn around
@@ -97,7 +97,7 @@ function player:update(dt)
 
     --jumping
     if self.jump then
-        if input:pressed("jump") then
+        if input:down("jump") then
             self.vy=-self.jumpHeight
         end
     end
