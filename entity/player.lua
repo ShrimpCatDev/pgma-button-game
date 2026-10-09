@@ -52,6 +52,10 @@ function player:init(x,y,parent)
     self.action = nil
     self.actionTimer = 0
 
+    self.dashSpeed=260 --how fast the dash is
+    self.dashTime=0.15 --how long the dash lasts
+    self.dashTimer=0
+
     self.parent.world:add(self,self.x,self.y,self.w,self.h) --add the player to the physics world
 
     self.vx=0
@@ -108,8 +112,22 @@ function player:update(dt)
 
     self.drawDir=math.lerp(self.drawDir,self.dir,12,dt) --smoothly animate the turning/flipping of le player
 
-    self.x=self.x+(self.speed*self.dir)*dt --move the players x by its velocity
+    -- self.x=self.x+(self.speed*self.dir)*dt --move the players x by its velocity
+    --dashing
+    if self.dashTimer<=0 and self:consume("b") then
+        self.dashTimer=self.dashTime
+    end
 
+    local moveSpeed=self.speed
+    if self.dashTimer>0 then
+        self.dashTimer=self.dashTimer-dt
+        moveSpeed=self.dashSpeed
+        self.vy=0 --hang in the air while dashing
+    end
+
+    self.x=self.x+(moveSpeed*self.dir)*dt --move the players x by its velocity
+
+    
     local ax,ay,col,len=self.parent.world:move(self,self.x,self.y,self.filter) --update the players position in the physics world
     self.x,self.y=ax,ay
 
