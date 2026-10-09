@@ -180,7 +180,8 @@ function player:updateInput(dt)
     if not down and self.gapTimer then
         self.gapTimer = self.gapTimer - dt
         if self.gapTimer <= 0 then
-            self:resolveInput()
+            self.seq = {}        -- already fired in pushInput, just discard
+            self.gapTimer = nil
         end
     end
 
@@ -196,8 +197,15 @@ end
 
 function player:pushInput(kind)
     table.insert(self.seq, kind)
-    if hasExtension(table.concat(self.seq, ",")) then
-        self.gapTimer = SEQ_WINDOW -- wait and see if more is coming
+    local seqStr = table.concat(self.seq, ",")
+    if hasExtension(seqStr) then
+        -- fire what we have right now, upgrade later if more input comes
+        local key = outputMapping[seqStr]
+        if key then
+            self.action = key
+            self.actionTimer = ACTION_BUFFER
+        end
+        self.gapTimer = SEQ_WINDOW
     else
         self:resolveInput() -- nothing longer possible, fire now
     end
