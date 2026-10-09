@@ -39,7 +39,13 @@ function love.load()
     --gamestate manager
     gs=require("lib/hump/gamestate")
     gs.registerEvents()
-    gs.switch(require("states/game")) --gonna replace this with a better state system eventually once i add more states :3
+
+    states={
+        game=require("states/game"),
+        title=require("states/title")
+    }
+
+    gs.switch(states.title)
 end
 
 function love.update(dt)
