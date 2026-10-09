@@ -16,13 +16,20 @@ function player.filter(item,other)
     end
 end
 
+CURRENT_KEY = nil
+CURRENT_KEY_RESETTER = 4
+
 function player:init(x,y,parent)
     --the parent stuff makes it easier to access the world
     self.parent=parent
     self.x=x or 0
-    self.y=y or 0
+    self.y=y or 0 
     self.w=8
     self.h=8
+
+    self.moveset = {}
+    self.movesetResetTimer = 2.5
+    self.keyboardHeldTime = 0
 
     self.parent.world:add(self,self.x,self.y,self.w,self.h) --add the player to the physics world
 
@@ -73,6 +80,36 @@ function player:update(dt)
         self.anim.current=self.anim.idle
     end]]
 
+    if CURRENT_KEY ~= nil then
+        CURRENT_KEY_RESETTER = CURRENT_KEY_RESETTER -  dt
+        if CURRENT_KEY_RESETTER <= 0 then
+            CURRENT_KEY_RESETTER = nil
+            CURRENT_KEY_RESETTER = 2
+        end
+    end
+
+        if input:down("start") then
+            self.keyboardHeldTime = self.keyboardHeldTime +  dt
+
+        else
+            if #self.moveset <= 2 then
+                if self.keyboardHeldTime > 1 then
+                    table.insert(self.moveset, "hold")
+                elseif self.keyboardHeldTime > 0 then
+                    table.insert(self.moveset, "press")
+                end
+            end
+            self.keyboardHeldTime = 0
+        end
+
+        if #self.moveset > 0 then
+            self.movesetResetTimer = self.movesetResetTimer -  dt
+            if self.movesetResetTimer <= 0 then
+                self:commenceOutput()
+                self.movesetResetTimer = 0
+            end
+        end
+
     self.drawDir=math.lerp(self.drawDir,self.dir,12,dt) --smoothly animate the turning/flipping of le player
 
     self.x=self.x+(self.speed*self.dir)*dt --move the players x by its velocity
@@ -99,7 +136,7 @@ function player:update(dt)
 
     --jumping
     if self.jump then
-        if input:down("jump") then
+        if CURRENT_KEY == "a" then
             self.vy=-self.jumpHeight
         end
     end
@@ -119,6 +156,19 @@ function player:draw()
     love.graphics.setColor(a,a,a,1)
         self.anim.current:draw(self.img,dx,dy,0,self.drawDir,1,self.w/2,0) --draw player (with animation) hi lol
     love.graphics.setColor(1,1,1,1)
+end
+
+function player:commenceOutput()
+    outputMapping = {
+        ["press"] = "a",
+        ["press,press"] = "b",
+        ["hold,press"] = "x",
+        ["press,hold"] = "y"
+    }
+
+    self.input = table.concat(self.moveset, ",")
+    CURRENT_KEY = outputMapping[self.input]
+
 end
 
 return player

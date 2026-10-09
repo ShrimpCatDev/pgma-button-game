@@ -174,6 +174,8 @@ function game:draw()
             love.graphics.setColor(1,1,1,1)
         shove.endLayer()
     shove.endDraw()
+
+    if CURRENT_KEY then love.graphics.print(CURRENT_KEY) end
 end
 
 return game
