@@ -16,8 +16,25 @@ function player.filter(item,other)
     end
 end
 
-CURRENT_KEY = nil
-CURRENT_KEY_RESETTER = 4
+local SEQ_WINDOW = 0.2       -- max gap between release and next press
+local HOLD_THRESHOLD = 0.35  -- how long until a press counts as a hold
+local ACTION_BUFFER = 0.15   -- how long a resolved key waits to be consumed
+local outputMapping = {
+    ["press"] = "a",
+    ["press,press"] = "b",
+    ["hold"] = "x",
+    ["hold,press"] = "x",
+    ["press,hold"] = "y"
+}
+
+-- can this sequence still grow into a longer mapping?
+local function hasExtension(seqStr)
+    local prefix = seqStr .. ","
+    for k in pairs(outputMapping) do
+        if k:sub(1, #prefix) == prefix then return true end
+    end
+    return false
+end
 
 function player:init(x,y,parent)
     --the parent stuff makes it easier to access the world
@@ -27,9 +44,13 @@ function player:init(x,y,parent)
     self.w=8
     self.h=8
 
-    self.moveset = {}
-    self.movesetResetTimer = 2.5
-    self.keyboardHeldTime = 0
+    self.seq = {}
+    self.spaceWasDown = false
+    self.heldTime = 0
+    self.holdFired = false
+    self.gapTimer = nil
+    self.action = nil
+    self.actionTimer = 0
 
     self.parent.world:add(self,self.x,self.y,self.w,self.h) --add the player to the physics world
 
@@ -80,35 +101,10 @@ function player:update(dt)
         self.anim.current=self.anim.idle
     end]]
 
-    if CURRENT_KEY ~= nil then
-        CURRENT_KEY_RESETTER = CURRENT_KEY_RESETTER -  dt
-        if CURRENT_KEY_RESETTER <= 0 then
-            CURRENT_KEY_RESETTER = nil
-            CURRENT_KEY_RESETTER = 2
-        end
-    end
+    self:updateInput(dt)
 
-        if input:down("start") then
-            self.keyboardHeldTime = self.keyboardHeldTime +  dt
 
-        else
-            if #self.moveset <= 2 then
-                if self.keyboardHeldTime > 1 then
-                    table.insert(self.moveset, "hold")
-                elseif self.keyboardHeldTime > 0 then
-                    table.insert(self.moveset, "press")
-                end
-            end
-            self.keyboardHeldTime = 0
-        end
 
-        if #self.moveset > 0 then
-            self.movesetResetTimer = self.movesetResetTimer -  dt
-            if self.movesetResetTimer <= 0 then
-                self:commenceOutput()
-                self.movesetResetTimer = 0
-            end
-        end
 
     self.drawDir=math.lerp(self.drawDir,self.dir,12,dt) --smoothly animate the turning/flipping of le player
 
@@ -136,7 +132,7 @@ function player:update(dt)
 
     --jumping
     if self.jump then
-        if CURRENT_KEY == "a" then
+        if self:consume("a") then
             self.vy=-self.jumpHeight
         end
     end
@@ -158,17 +154,72 @@ function player:draw()
     love.graphics.setColor(1,1,1,1)
 end
 
-function player:commenceOutput()
-    outputMapping = {
-        ["press"] = "a",
-        ["press,press"] = "b",
-        ["hold,press"] = "x",
-        ["press,hold"] = "y"
-    }
+function player:updateInput(dt)
+    local down = love.keyboard.isDown("space")
+    local pressed = down and not self.spaceWasDown
+    local released = not down and self.spaceWasDown
 
-    self.input = table.concat(self.moveset, ",")
-    CURRENT_KEY = outputMapping[self.input]
+    if pressed then
+        self.heldTime = 0
+        self.holdFired = false
+        self.gapTimer = nil -- an input is in progress, don't resolve yet
+    end
 
+    if down then
+        self.heldTime = self.heldTime + dt
+        if not self.holdFired and self.heldTime >= HOLD_THRESHOLD then
+            self.holdFired = true
+            self:pushInput("hold") -- fires while held, not on release
+        end
+    end
+
+    if released and not self.holdFired then
+        self:pushInput("press")
+    end
+
+    if not down and self.gapTimer then
+        self.gapTimer = self.gapTimer - dt
+        if self.gapTimer <= 0 then
+            self:resolveInput()
+        end
+    end
+
+    if self.action then
+        self.actionTimer = self.actionTimer - dt
+        if self.actionTimer <= 0 then
+            self.action = nil
+        end
+    end
+
+    self.spaceWasDown = down
+end
+
+function player:pushInput(kind)
+    table.insert(self.seq, kind)
+    if hasExtension(table.concat(self.seq, ",")) then
+        self.gapTimer = SEQ_WINDOW -- wait and see if more is coming
+    else
+        self:resolveInput() -- nothing longer possible, fire now
+    end
+end
+
+function player:resolveInput()
+    local key = outputMapping[table.concat(self.seq, ",")]
+    if key then
+        self.action = key
+        self.actionTimer = ACTION_BUFFER
+    end
+    self.seq = {}
+    self.gapTimer = nil
+end
+
+-- returns true once if key is pending, then clears it
+function player:consume(key)
+    if self.action == key then
+        -- self.action = nil
+        return true
+    end
+    return false
 end
 
 return player

@@ -172,10 +172,12 @@ function game:draw()
             love.graphics.setColor(1,1,1,1-f)
             love.graphics.draw(self.bg.overlayCanvas,0,0)
             love.graphics.setColor(1,1,1,1)
+
+            if self.player.action then love.graphics.print(self.player.action) end
+
         shove.endLayer()
     shove.endDraw()
 
-    if CURRENT_KEY then love.graphics.print(CURRENT_KEY) end
 end
 
 return game
